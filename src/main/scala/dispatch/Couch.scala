@@ -41,8 +41,6 @@ case class Doc(val db: Db, val id: String) extends Request(db / encode(id)) with
 }
 
 /** Request for a particular view in a particular database. */
-case class View(val db: Db, val designName: String, val viewName: String) extends Request(db / "_design"/ encode(designName) / "_view" / encode(viewName)) with Js {
-	def emit() = {
-      this ># ('rows ! list )
-	}
+case class View(db: Db, design: String, view: String) extends 
+  Request(db / "_design" / design / "_view" / view)
 }
